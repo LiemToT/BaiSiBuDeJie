@@ -28,8 +28,6 @@
     [tagButton addTarget:self action:@selector(tagClick) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:tagButton];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
 }
 
 - (void)tagClick {
