@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LYMineController : UIViewController
+@interface LYMineController : UITableViewController
 
 @end

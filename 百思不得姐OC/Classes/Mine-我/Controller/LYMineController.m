@@ -7,43 +7,95 @@
 //
 
 #import "LYMineController.h"
+#import "LYMeCell.h"
+#import "LYFooterView.h"
+#import "LYSettingController.h"
 
 @interface LYMineController ()
 
 @end
 
 @implementation LYMineController
+- (instancetype)init
+{
+    return [self initWithStyle:UITableViewStyleGrouped];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = LYNormalBgColor;
+    [self initTableView];
+    [self initNavigation];
+    self.navigationController.view.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)initTableView
+{
+    self.tableView.sectionHeaderHeight = 0;
+    self.tableView.sectionFooterHeight = 10;
+    self.tableView.contentInset = UIEdgeInsetsMake(LYMargin - 35, 0, 0, 0);
     
+    self.tableView.tableFooterView = [[LYFooterView alloc] init];
+    
+    self.view.backgroundColor = LYNormalBgColor;
+}
+
+- (void)initNavigation
+{
     self.navigationItem.title = @"我的";
     
-    UIButton *settingButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [settingButton setImage:[UIImage imageNamed:@"mine-setting-icon"] forState:UIControlStateNormal];
-    [settingButton setImage:[UIImage imageNamed:@"mine-setting-icon-click"] forState:UIControlStateHighlighted];
-    [settingButton sizeToFit];
-    [settingButton addTarget:self action:@selector(settingClick) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *settingBarItem = [[UIBarButtonItem alloc] initWithCustomView:settingButton];
-    
-    UIButton *moonButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [moonButton setImage:[UIImage imageNamed:@"mine-moon-icon"] forState:UIControlStateNormal];
-    [moonButton setImage:[UIImage imageNamed:@"mine-moon-icon-click"] forState:UIControlStateHighlighted];
-    [moonButton sizeToFit];
-    [moonButton addTarget:self action:@selector(moonClick) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *moonBarItem = [[UIBarButtonItem alloc] initWithCustomView:moonButton];
+    UIBarButtonItem *settingBarItem = [UIBarButtonItem itemWithImage:@"mine-setting-icon" highImage:@"mine-setting-icon-click" target:self action:@selector(settingClick)];
+    UIBarButtonItem *moonBarItem = [UIBarButtonItem itemWithImage:@"mine-moon-icon" highImage:@"mine-moon-icon-click" target:self action:@selector(moonClick)];
     
     self.navigationItem.rightBarButtonItems = @[settingBarItem, moonBarItem];
 }
 
 - (void)settingClick {
-    LYLogFunc;
+    LYSettingController *settingController = [[LYSettingController alloc] init];
+    [self.navigationController pushViewController:settingController animated:true];
 }
 
 - (void)moonClick {
     LYLogFunc;
 }
 
+#pragma mark - UITableView Delegate 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    
+    LYMeCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[LYMeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    if (indexPath.section == 0) {
+        cell.textLabel.text = @"登录/注册";
+        cell.imageView.image = [UIImage imageNamed:@"setup-head-default"];
+    } else {
+        cell.textLabel.text = @"离线下载";
+    }
+    
+    return cell;
+}
 @end
+
+
+
+
+
+
+
+
+

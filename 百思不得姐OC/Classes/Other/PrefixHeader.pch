@@ -11,10 +11,29 @@
 
 #ifdef __OBJC__
 
+#import "UIBarButtonItem+LYExtensions.h"
+#import "UIView+LYExtension.h"
+#import "LYConfig.h"
+#import "NSString+LYExtension.h"
+#import "SVProgressHUD.h"
+#import "NSDate+LYExtension.h"
+#import "NSCalendar+LYExtension.h"
+#import "UIImage+LYExtension.h"
+#import "UIImageView+LYExtension.h"
+
+#define WriteFileToDeskWithName(data, fileName) [data writeToFile:[NSString stringWithFormat:@"/Users/linyi/Desktop/%@.plist", fileName] atomically:YES];
+#define XMGWriteToPlist(data, filename) [data writeToFile:[NSString stringWithFormat:@"/Users/linyi/Desktop/%@.plist", filename] atomically:YES];
+
+#define WeakSelf __weak typeof(self) weakSelf = self;
+#define LYIOS(version) [UIDevice currentDevice].systemVersion.doubleValue >= (version)
+
 #define LYColor(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+#define LYRandomColor [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1.0]
 #define LYNormalBgColor LYColor(206, 206, 206)
 
-#define LYLogFunc NSLog(@"%s", __func__)
+#define LYCachePath @"LYCustomCache"
+
+#define LYLogFunc NSLog(@"%s", __func__);
 
 #endif
 

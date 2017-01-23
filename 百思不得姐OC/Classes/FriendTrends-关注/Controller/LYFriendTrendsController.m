@@ -7,6 +7,8 @@
 //
 
 #import "LYFriendTrendsController.h"
+#import "LYRecommendFollowViewController.h"
+#import "LYLoginRegistViewController.h"
 
 @interface LYFriendTrendsController ()
 
@@ -21,17 +23,17 @@
     
     self.navigationItem.title = @"我的关注";
     
-    UIButton *friendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [friendsButton setImage:[UIImage imageNamed:@"friendsRecommentIcon"] forState:UIControlStateNormal];
-    [friendsButton setImage:[UIImage imageNamed:@"friendsRecommentIcon-click"] forState:UIControlStateHighlighted];
-    [friendsButton sizeToFit];
-    [friendsButton addTarget:self action:@selector(friendClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:friendsButton];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithImage:@"friendsRecommentIcon" highImage:@"friendsRecommentIcon-click" target:self action:@selector(friendClick)];
+    self.navigationController.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)friendClick {
-    LYLogFunc;
+    LYRecommendFollowViewController *recommendFollow = [[LYRecommendFollowViewController alloc] init];
+    [self.navigationController pushViewController:recommendFollow animated:true];
 }
 
+- (IBAction)loginRegist {
+    LYLoginRegistViewController *loginRegist = [[LYLoginRegistViewController alloc] init];
+    [self presentViewController:loginRegist animated:YES completion:nil];
+}
 @end

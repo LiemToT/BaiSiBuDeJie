@@ -6,8 +6,8 @@
 //  Copyright © 2016年 linyi. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "LYEssenceController.h"
 
-@interface LYNewController : UIViewController
+@interface LYNewController : LYEssenceController
 
 @end

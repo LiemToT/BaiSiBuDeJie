@@ -17,8 +17,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] init];
-    self.window.frame = [UIScreen mainScreen].bounds;    
+    self.window.frame = [UIScreen mainScreen].bounds;
     self.window.rootViewController = [[LYTabBarController alloc] init];
+    self.window.backgroundColor = [UIColor clearColor];
     [self.window makeKeyAndVisible];
     
     return YES;
